@@ -1,0 +1,72 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Jul 16 11:19:29 2021
+
+@author: Shannon Duvall
+
+Crack the code!  Implement a rotating substitution cipher
+"""
+
+
+"""
+Project 5
+@author: Sonith Riem
+
+This Cipher project uses loops and string manipulation to decode encrypted message. 
+A Cipher is when each letter is encrypted with another letter in the alphabet. 
+In this project, every time a letter is encrypted, the key is rotated. 
+
+"""
+#This function decode the message. 
+def decode(message,key):
+  #Make the message lower case.
+  lower_case = message.lower()
+  
+  #List of non-alphabetic characters/punctuations
+  special_char = [" ",",",".","!","#","(", ")", "*", "$"]
+  
+  #List of the alphabets. 
+  alphabet= "abcdefghijklmnopqrstuvwxyz"
+  
+  #Create an empty string for the decoded message. 
+  decoded_message = []
+  
+  #For loop, find the character
+  for char in lower_case:
+    if char in alphabet:
+      sub = key.find(char)
+      decoded_message.append(alphabet[sub])
+      key_list = list(key)
+      rotate_key = key_list.pop(0)
+      key_list.append(rotate_key)
+      
+      key = "".join(key_list)
+    # for when the character is in the special character  
+    elif char in special_char:
+      decoded_message.append(char)
+      
+  deciphered = "".join(decoded_message)
+  return deciphered
+        
+
+# Write a function called "decode" with two parameters: a 
+# string for the message you are trying to decode, and a 
+# string for the key.  The function should return a string
+# which is the decoded message.
+
+
+
+def main():
+    # Leave these two lines as-is!
+    my_key = "qwertyuiopasdfghjklzxcvbnm";
+    my_message = "ehglnnan qslhmhl vjp xqxoeww mft tkkngxepcva hchrbvs feq znb vy fsmp, ecmz, mvds gez evzso. hte eoztszjgxd ke fqquojtstl brbsyogo; vsp nqedgny moip lv zcuq jd wgfgbkfoiwf uhbn gez evzso pwx wggtiznn qhqnylxepp eqnn.";
+    
+    message = decode(my_message, my_key)
+    print((message[0].upper())+(message[1:92])+ message[92].upper()+ message[93:])
+    # Add a line that calls your function with the provided strings and prints the returned string.
+
+
+# Don't change this line of code:
+if __name__ == '__main__':
+    main()
